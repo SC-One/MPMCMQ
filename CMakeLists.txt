@@ -8,11 +8,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Threads REQUIRED)
 
-set(include_dir ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(source_dir  ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(hdr_dir ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(src_dir  ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-file(GLOB_RECURSE hdr ${include_dir}/${CMAKE_PROJECT_NAME}/*.h)
-file(GLOB_RECURSE src ${source_dir}/*.cpp)
+file(GLOB_RECURSE hdr ${hdr_dir}/${CMAKE_PROJECT_NAME}/*.h)
+file(GLOB_RECURSE src ${src_dir}/*.cpp)
 
 
 add_executable(${CMAKE_PROJECT_NAME}
@@ -21,7 +21,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     ${src}
 )
 
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${include_dir})
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${hdr_dir})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
     Threads::Threads
 )

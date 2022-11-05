@@ -27,7 +27,7 @@ namespace TrendPlus {
 ///
 template <typename T, std::size_t BUFFER_SIZE_VALUE = 100,
           typename Container = std::queue<T>>
-class GenericQueue {
+class GenericQueue final {
  public:
   T pop() {
     std::unique_lock<std::mutex> mlock(mutex_);
@@ -41,7 +41,7 @@ class GenericQueue {
     return val;
   }
 
-  void pop(T& item) {
+  void take(T& item) {
     std::unique_lock<std::mutex> mlock(mutex_);
     while (queue_.empty()) {
       cond_.wait(mlock);
@@ -60,6 +60,10 @@ class GenericQueue {
     queue_.push(item);
     mlock.unlock();
     cond_.notify_one();
+  }
+  std::size_t currentSize() const {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return queue_.size();
   }
   GenericQueue() = default;
   GenericQueue(const GenericQueue&) = delete;             // disable copying

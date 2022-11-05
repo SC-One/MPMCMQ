@@ -1,5 +1,6 @@
 #include <MPMCMQ/GenericQueue.h>
 #include <MPMCMQ/Producer-Consumer-Example.h>
+#include <MPMCMQ/QueueManager.h>
 
 #include <functional>
 #include <iostream>
